@@ -85,7 +85,5 @@ public class Menu extends JPanel {
 		btnLoad.setBackground(Color.BLACK);
 		btnLoad.setBounds(320, 146, 160, 50);
 		add(btnLoad);
-
 	}
-
 }
