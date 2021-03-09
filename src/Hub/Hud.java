@@ -109,6 +109,7 @@ public class Hud extends JPanel {
 				btnMenu.setForeground(Color.LIGHT_GRAY);
 			}
 			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				Menu menu = new Menu(gm);
 				gm.getLayeredPane().add(menu, "Menu");
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Menu");
@@ -139,6 +140,10 @@ public class Hud extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				btnTrankBenutzen.setForeground(Color.LIGHT_GRAY);
 			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
+			}
 		});
 		btnTrankBenutzen.setForeground(Color.LIGHT_GRAY);
 		btnTrankBenutzen.setFont(new Font("MedievalSharp", Font.BOLD, 10));
@@ -164,6 +169,10 @@ public class Hud extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnBag.setForeground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 			}
 		});
 		btnBag.setForeground(Color.LIGHT_GRAY);

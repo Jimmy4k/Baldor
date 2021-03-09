@@ -51,6 +51,7 @@ public class Level04 extends JPanel {
 		btnWeiter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				Level05 level05 = new Level05(gm);
 				gm.getLayeredPane().add(level05, "Level05");
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Level05");

@@ -4,12 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.text.DecimalFormat;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,16 +15,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Level.Level02;
 import MainGame.Game;
 import MainGame.GameManager;
+import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Option extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private double value = 0.50;
-	private Clip audioClip;
-	private File soundFile = new File("D:\\Programme\\Eciplse\\Workspace\\Game\\src\\MainGame\\FantasyMusik.wav")
-			.getAbsoluteFile();
 	private DecimalFormat df = new DecimalFormat("##");
 
 	/**
@@ -47,7 +44,8 @@ public class Option extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if ( gm.getLastPanel() == "StartMenu") {
+				gm.getButtonSound().playSoundAgain();
+				if (gm.getLastPanel() == "StartMenu") {
 					gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "StartMenu");
 				}
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Menu");
@@ -63,7 +61,7 @@ public class Option extends JPanel {
 		JPanel SoundSettings = new JPanel();
 		SoundSettings.setBackground(Color.BLACK);
 		SoundSettings.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		SoundSettings.setBounds(22, 24, 217, 111);
+		SoundSettings.setBounds(22, 24, 217, 149);
 		add(SoundSettings);
 		SoundSettings.setLayout(null);
 
@@ -84,28 +82,38 @@ public class Option extends JPanel {
 		lblSoundSettings.setFont(new Font("MedievalSharp", Font.BOLD, 25));
 		lblSoundSettings.setBounds(10, 11, 193, 26);
 		SoundSettings.add(lblSoundSettings);
-		slider.addChangeListener(new ChangeListener() {
+		
+		JLabel lblButtonVolume = new JLabel("Button Volume: 50");
+		lblButtonVolume.setForeground(Color.LIGHT_GRAY);
+		lblButtonVolume.setFont(new Font("MedievalSharp", Font.BOLD, 15));
+		lblButtonVolume.setBounds(10, 94, 193, 18);
+		SoundSettings.add(lblButtonVolume);
+		
+		JSlider slider_1 = new JSlider(0, 100, 50);
+		slider_1.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				value = slider.getValue() / 100.0;
-				lblSoundVolume.setText("Sound Volume: " + df.format((value) * 100));
-				FloatControl gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+				double value = slider_1.getValue() / 100.0;
+				lblButtonVolume.setText("Button Volume: " + df.format((value) * 100));
+				FloatControl gainControl = (FloatControl) gm.getButtonSound().getAudioClip()
+						.getControl(FloatControl.Type.MASTER_GAIN);
 				float dB = (float) (Math.log(value) / Math.log(10.0) * 20.0);
 				gainControl.setValue(dB);
 			}
 		});
-	}
-
-	public void sounds() {
-		try {
-			audioClip = AudioSystem.getClip();
-			AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
-			audioClip.open(ais);
-			audioClip.start();
-
-		} catch (Exception ex) {
-			System.out.println("Kann die Sounddatei nicht abspielen.");
-			ex.printStackTrace();
-
-		}
+		slider_1.setForeground(Color.LIGHT_GRAY);
+		slider_1.setBackground(Color.BLACK);
+		slider_1.setBounds(10, 112, 193, 26);
+		SoundSettings.add(slider_1);
+		
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				double value = slider.getValue() / 100.0;
+				lblSoundVolume.setText("Sound Volume: " + df.format((value) * 100));
+				FloatControl gainControl = (FloatControl) gm.getBackgroundSound().getAudioClip()
+						.getControl(FloatControl.Type.MASTER_GAIN);
+				float dB = (float) (Math.log(value) / Math.log(10.0) * 20.0);
+				gainControl.setValue(dB);
+			}
+		});
 	}
 }

@@ -21,11 +21,11 @@ public class Start extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public Start(GameManager gm) {
-		
+
 		setBackground(Color.BLACK);
 		setLayout(null);
 		setBounds(100, 100, 800, 600);
-		
+
 		gm.setLastPanel("StartMenu");
 
 		JLabel lblGameName = new JLabel("BALDOR");
@@ -38,7 +38,8 @@ public class Start extends JPanel {
 		btnStartGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Level01 level01 = new Level01(gm);
+				Level01 level01 = new Level01(gm);				
+				gm.getButtonSound().playSoundAgain();
 				gm.getLayeredPane().add(level01, "Level01");
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Level01");
 			}
@@ -54,6 +55,7 @@ public class Start extends JPanel {
 		btnOption.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "OptionMenu");
 			}
 		});
@@ -67,6 +69,7 @@ public class Start extends JPanel {
 		JButton btnStartGame_1 = new JButton("EXIT");
 		btnStartGame_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				System.exit(0);
 			}
 		});

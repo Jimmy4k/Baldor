@@ -66,6 +66,8 @@ public class Level01 extends JPanel {
 					level02 = new Level02(gm);
 					gm.getPlayer().setName(tfName.getText());
 					gm.getLayeredPane().add(level02, "Level02");
+					level02 = new Level02(gm);
+					gm.getButtonSound().playSoundAgain();
 					gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Level02");
 				}
 			}
@@ -81,6 +83,8 @@ public class Level01 extends JPanel {
 				level02 = new Level02(gm);
 				gm.getPlayer().setName(tfName.getText());
 				gm.getLayeredPane().add(level02, "Level02");
+				level02 = new Level02(gm);
+				gm.getButtonSound().playSoundAgain();
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "Level02");
 			}
 			@Override

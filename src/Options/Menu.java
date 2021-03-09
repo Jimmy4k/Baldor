@@ -33,6 +33,7 @@ public class Menu extends JPanel {
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), gm.getLastPanel());
 			}
 		});
@@ -46,6 +47,7 @@ public class Menu extends JPanel {
 		JButton btnBeenden = new JButton("ENDE");
 		btnBeenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				System.exit(0);
 			}
 		});
@@ -60,6 +62,7 @@ public class Menu extends JPanel {
 		btnOptionen.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				gm.getButtonSound().playSoundAgain();
 				gm.getLevelSwitcher().switchPanel(gm.getCardLayout(), gm.getLayeredPane(), "OptionMenu");
 			}
 		});
